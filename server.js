@@ -29,7 +29,7 @@ if (!isDev && cluster.isMaster) {
   const PORT = process.env.PORT || 5000
 
   // Priority serve any static files.
-  app.use(express.static(path.join(__dirname, './frontend/react.js')))
+  app.use(express.static(path.join(__dirname, './react-ui/public/index.html')))
 
   // configure body parser for AJAX requests
   app.use(
