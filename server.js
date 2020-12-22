@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 const path = require('path');
+const passport = require("passport");
 
 const isDev = process.env.NODE_ENV !== 'production';
 
@@ -51,6 +52,14 @@ if (!isDev && cluster.isMaster) {
     )
     .then(() => console.log("MongoDB successfully connected"))
     .catch(err => console.log(err));
+
+  const users = require("./routes/api/users");
+
+  app.use(passport.initialize());
+
+  require("./config/passport")(passport);
+
+  app.use("/api/users", users);
 
   app.listen(PORT, function () {
     console.error(
