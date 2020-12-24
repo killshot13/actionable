@@ -17,9 +17,7 @@ function App() {
 				keyLength={12}>
 				<Navbar />
 				<Switch>
-					<Route exact path="/">
-						<LandingPage />
-					</Route>
+					<Route exact path="/"></Route>
 					<Route path="/*"></Route>
 				</Switch>
 			</BrowserRouter>
