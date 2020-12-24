@@ -8,6 +8,7 @@
 		"npm": "6.14.x"
 	},
 	"scripts": {
+		"pretest": "eslint --ignore-path .gitignore .",
 		"client-install": "npm install --prefix react-ui",
 		"start": "node server.js",
 		"server": "nodemon server.js",
@@ -55,6 +56,8 @@
 		"validator": "^13.5.2"
 	},
 	"devDependencies": {
+		"eslint": "^7.16.0",
+		"eslint-config-strongloop": "^2.1.0",
 		"mj-pa": "^1.0.0",
 		"nodemon": "^2.0.6"
 	}
