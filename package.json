@@ -52,13 +52,13 @@
 		"passport": "^0.4.1",
 		"passport-jwt": "^4.0.0",
 		"path": "^0.12.7",
-		"prettier": "^2.2.1",
 		"validator": "^13.5.2"
 	},
 	"devDependencies": {
 		"eslint": "^7.16.0",
 		"eslint-config-strongloop": "^2.1.0",
 		"mj-pa": "^1.0.0",
-		"nodemon": "^2.0.6"
+		"nodemon": "^2.0.6",
+		"prettier": "^2.2.1"
 	}
 }
