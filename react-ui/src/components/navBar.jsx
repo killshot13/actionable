@@ -50,7 +50,7 @@ class Navbar extends Component {
 								</href>
 								<href className="button">
 									<span class="icon is-small is-right">
-										<i class="fas fa-check"></i>
+										<i class="fa fa-twitter"></i>
 									</span>
 									Tweet
 								</href>
