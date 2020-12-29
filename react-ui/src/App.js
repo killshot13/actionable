@@ -1,11 +1,14 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Navbar from './components/navBar'
-import LandingPage from './components/landingPage'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import './App.css'
+import { default as Login, default as Test } from './components/auth/Login'
+import Register from './components/auth/Register'
+import LandingPage from './components/LandingPage'
+import Navbar from './components/Navbar'
 
 function App() {
 	return (
-		<div className="App">
+		<div className='App'>
 			<BrowserRouter
 				basename={'/'}
 				forceRefresh={true}
@@ -17,8 +20,18 @@ function App() {
 				keyLength={12}>
 				<Navbar />
 				<Switch>
-					<Route exact path="/"></Route>
-					<Route path="/*"></Route>
+					<Route exact path='/'>
+						<LandingPage />
+					</Route>
+					<Route path='/Register'>
+						<Register />
+					</Route>
+					<Route path='/Login'>
+						<Login />
+					</Route>
+					<Route path='/Test'>
+						<Test />
+					</Route>
 				</Switch>
 			</BrowserRouter>
 		</div>

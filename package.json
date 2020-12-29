@@ -52,9 +52,12 @@
 		"passport": "^0.4.1",
 		"passport-jwt": "^4.0.0",
 		"path": "^0.12.7",
+		"react": "^16.14.0",
 		"validator": "^13.5.2"
 	},
 	"devDependencies": {
-		"nodemon": "^2.0.6"
+		"mj-pa": "^1.2.0",
+		"nodemon": "^2.0.6",
+		"prettier": "^2.2.1"
 	}
 }

@@ -1,0 +1,28 @@
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.box {
+	background-color: #FA8BFF;
+	background-image: -webkit-linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
+	background-image: -moz-linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
+	background-image: -o-linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
+	background-image: linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
+}
+
+@font-face {
+	font-family: 'BonnBoldBetaRegular', sans-serif;
+	font-weight: bold;
+	src: url("./fonts/bonn_bold.ttf") format("opentype");
+
+	font-family: 'BonnRegularBetaRegular', sans-serif;
+	font-weight: normal;
+	src: url("./fonts/bonn_regular.ttf") format("opentype");
+
+	font-family: 'BonnLightBetaRegular', sans-serif;
+	font-weight: thin;
+	src: url("./fonts/bonn_light.ttf") format("opentype");
+}
