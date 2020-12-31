@@ -1,40 +1,44 @@
 import React from 'react'
+import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './App.css'
-import { default as Login, default as Test } from './components/auth/Login'
+import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import LandingPage from './components/LandingPage'
 import Navbar from './components/Navbar'
+import store from './store'
 
 function App() {
 	return (
-		<div className='App'>
-			<BrowserRouter
-				basename={'/'}
-				forceRefresh={true}
-				getUserConfirmation={(message, callback) => {
-					// this is the default behavior
-					const allowTransition = window.confirm(message)
-					callback(allowTransition)
-				}}
-				keyLength={12}>
-				<Navbar />
-				<Switch>
-					<Route exact path='/'>
-						<LandingPage />
-					</Route>
-					<Route path='/Register'>
-						<Register />
-					</Route>
-					<Route path='/Login'>
-						<Login />
-					</Route>
-					<Route path='/Test'>
-						<Test />
-					</Route>
-				</Switch>
-			</BrowserRouter>
-		</div>
+		<Provider store={store}>
+			<div className='App'>
+				<BrowserRouter
+					basename={'/'}
+					forceRefresh={true}
+					getUserConfirmation={(message, callback) => {
+						// this is the default behavior
+						const allowTransition = window.confirm(message)
+						callback(allowTransition)
+					}}
+					keyLength={12}>
+					<Navbar />
+					<Switch>
+						<Route exact path='/'>
+							<LandingPage />
+						</Route>
+						<Route exact path='/register'>
+							<Register />
+						</Route>
+						<Route exact path='/login'>
+							<Login />
+						</Route>
+						<Route path='/test'>
+							<Login />
+						</Route>
+					</Switch>
+				</BrowserRouter>
+			</div>
+		</Provider>
 	)
 }
 

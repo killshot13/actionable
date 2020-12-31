@@ -7,7 +7,7 @@ class Logo extends Component {
 		return (
 			<div>
 				<Link to='/'>
-					<img src={Image} className='image is-400x225' alt='App Logo' />
+					<img src={Image} className='image is-128x20' alt='App Logo' />
 				</Link>
 			</div>
 		)

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Logo from '../Logo'
 import LoginButtons from './LoginButtons'
 
-class Test extends Component {
+class Login extends Component {
 	constructor() {
 		super()
 		this.state = {
@@ -89,4 +89,4 @@ class Test extends Component {
 		)
 	}
 }
-export default Test
+export default Login

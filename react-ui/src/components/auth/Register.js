@@ -1,7 +1,11 @@
+import classnames from 'classnames'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import { registerUser } from '../../actions/authActions'
 import Logo from '../Logo'
 import RegButtons from './RegButtons'
-
 class Register extends Component {
 	constructor() {
 		super()
@@ -11,6 +15,13 @@ class Register extends Component {
 			password: '',
 			password2: '',
 			errors: {},
+		}
+	}
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.errors) {
+			this.setState({
+				errors: nextProps.errors,
+			})
 		}
 	}
 	onChange = e => {
@@ -24,7 +35,7 @@ class Register extends Component {
 			password: this.state.password,
 			password2: this.state.password2,
 		}
-		console.log(newUser)
+		this.props.registerUser(newUser, this.props.history)
 	}
 	render() {
 		const { errors } = this.state
@@ -46,16 +57,19 @@ class Register extends Component {
 
 									<div className='field'>
 										<label className='label'>Name</label>
+										<span className='red-text'>{errors.name}</span>
 										<div className='control has-icons-left'>
 											<input
 												type='text'
-												className='input is-medium'
+												className={classnames('input is-medium', {
+													invalid: errors.name,
+												})}
 												placeholder='John Doe'
 												required
 												onChange={this.onChange}
 												value={this.state.name}
 												error={errors.name}
-												id='text'
+												id='name'
 											/>
 											<span className='icon is-small is-left'>
 												<i className='fa fa-user'></i>
@@ -64,10 +78,13 @@ class Register extends Component {
 									</div>
 									<div className='field'>
 										<label className='label'>Email</label>
+										<span className='red-text'>{errors.email}</span>
 										<div className='control has-icons-left'>
 											<input
 												type='email'
-												className='input is-medium'
+												className={classnames('input is-medium', {
+													invalid: errors.email,
+												})}
 												placeholder='e.g. actionable@outlook.com'
 												required
 												onChange={this.onChange}
@@ -82,10 +99,13 @@ class Register extends Component {
 									</div>
 									<div className='field'>
 										<label className='label'>Password</label>
+										<span className='red-text'>{errors.password}</span>
 										<div className='control has-icons-left'>
 											<input
 												type='password'
-												className='input is-medium'
+												className={classnames('input is-medium', {
+													invalid: errors.password,
+												})}
 												placeholder='*********'
 												required
 												onChange={this.onChange}
@@ -100,10 +120,13 @@ class Register extends Component {
 									</div>
 									<div className='field'>
 										<label className='label'>Confirm Password</label>
+										<span className='red-text'>{errors.password2}</span>
 										<div className='control has-icons-left'>
 											<input
 												type='password'
-												className='input is-medium'
+												className={classnames('input is-medium', {
+													invalid: errors.password,
+												})}
 												placeholder='*********'
 												required
 												onChange={this.onChange}
@@ -128,4 +151,13 @@ class Register extends Component {
 		)
 	}
 }
-export default Register
+Register.propTypes = {
+	registerUser: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
+	errors: PropTypes.object.isRequired,
+}
+const mapStateToProps = state => ({
+	auth: state.auth,
+	errors: state.errors,
+})
+export default connect(mapStateToProps, { registerUser })(withRouter(Register))
