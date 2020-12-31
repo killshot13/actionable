@@ -54,7 +54,7 @@ class Login extends Component {
 					<div className='container is-max-widescreen'>
 						<div className='columns is-5-tablet is-4-desktop is-3-widescreen'>
 							<div className='column'>
-								<form className='box control' noValidate onSubmit={this.onSubmit}>
+								<form className='box control' Validate onSubmit={this.onSubmit}>
 									<div className='level-item'>
 										<figure class='image is-64x64 mb-5'>
 											<Logo />
@@ -73,7 +73,7 @@ class Login extends Component {
 										<div className='control has-icons-left'>
 											<input
 												type='email'
-												className={classnames('input is-black is-medium', {
+												className={classnames('input is-medium', {
 													invalid: errors.email || errors.emailnotfound,
 												})}
 												placeholder='e.g. actionable@outlook.com'
@@ -97,7 +97,7 @@ class Login extends Component {
 										<div className='control has-icons-left'>
 											<input
 												type='password'
-												className={classnames('input is-black is-medium', {
+												className={classnames('input is-medium', {
 													invalid: errors.password || errors.passwordincorrect,
 												})}
 												placeholder='*********'
@@ -115,16 +115,16 @@ class Login extends Component {
 									<div className='column is-6 is-offset-3'>
 										<div className='box gpBt'>
 											<div className='field is-grouped is-grouped-centered'>
-												<div className='control level-item' type='submit'>
-													<Link to='/' className='button is-black is-outlined'>
-														<strong>Submit</strong>
-													</Link>
-												</div>
-												<div className='control level-item' type='submit'>
-													<Link to='/' className='button is-white is-outlined'>
+												<button
+													className='control level-item button is-black is-outlined'
+													type='submit'>
+													<strong>Login</strong>
+												</button>
+												<Link to='/'>
+													<button className='control level-item button is-ghost is-outlined'>
 														Cancel
-													</Link>
-												</div>
+													</button>
+												</Link>
 											</div>
 										</div>
 									</div>

@@ -45,13 +45,11 @@ class Register extends Component {
 			password: this.state.password,
 			password2: this.state.password2,
 		}
-
 		this.props.registerUser(newUser, this.props.history)
 	}
 
 	render() {
 		const { errors } = this.state
-
 		return (
 			<section className='hero is-info is-fullheight is-bold'>
 				<div className='hero-body'>
@@ -155,20 +153,16 @@ class Register extends Component {
 									<div className='column is-6 is-offset-3'>
 										<div className='box gpBt'>
 											<div className='field is-grouped is-grouped-centered'>
-												<div className='control level-item'>
-													<Link
-														to='/'
-														className='button is-black is-outlined'
-														type='submit'
-														onClick={this.onClick}>
-														<strong>Register</strong>
-													</Link>
-												</div>
-												<div className='control'>
-													<Link to='/' className='button is-ghost is-outlined' type='submit'>
+												<button
+													className='control level-item button is-black is-outlined'
+													type='submit'>
+													<strong>Register</strong>
+												</button>
+												<Link to='/'>
+													<button className='control level-item button is-ghost is-outlined'>
 														Cancel
-													</Link>
-												</div>
+													</button>
+												</Link>
 											</div>
 										</div>
 									</div>

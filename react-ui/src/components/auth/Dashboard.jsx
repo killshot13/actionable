@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { logoutUser } from '../actions/authActions'
+import { logoutUser } from '../../actions/authActions'
 
 class Dashboard extends Component {
 	onLogoutClick = e => {
@@ -21,11 +20,7 @@ class Dashboard extends Component {
 						</div>
 						<div className='box'>
 							<div className='level'>
-								<div className='control level-item'>
-									<Link to='/Register' className='button is-black is-outlined is-medium'>
-										<strong>Take Action!</strong>
-									</Link>
-								</div>
+								<div className='control level-item'></div>
 							</div>
 						</div>
 					</div>
