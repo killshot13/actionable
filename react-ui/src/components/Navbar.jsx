@@ -24,29 +24,39 @@ export default function Navbar() {
 					className={`navbar-burger burger ${isActive ? 'is-active' : ''}`}
 					aria-label='menu'
 					aria-expanded='false'
-					data-target='navbarBasicExample'>
-					<span aria-hidden='true'></span>
-					<span aria-hidden='true'></span>
-					<span aria-hidden='true'></span>
+					data-target='navBurg'>
+					<span aria-hidden='true' data-target='navBurg1'></span>
+					<span aria-hidden='true' data-target='navBurg2'></span>
+					<span aria-hidden='true' data-target='navBurg3'></span>
 				</href>
 			</div>
 
-			<div className={`navbar-menu ${isActive ? 'is-active' : ''}`}>
+			<div className={`navbar-menu ${isActive ? 'is-active' : ''}`} id='navBurg'>
 				<div className='navbar-end'>
 					<div className='navbar-item'>
-						<Link to='/' className='button is-link is-danger is-outlined is-light is-small'>
+						<Link
+							to='/dashboard'
+							className='button is-link is-danger is-outlined is-light is-small'
+							id='navBurg1'
+							type='submit'>
 							<strong>Tasks</strong>
 						</Link>
 					</div>
 					<div className='navbar-item'>
-						<Link to='/' className='button is-link is-info is-outlined is-light is-small'>
+						<Link
+							to='/dashboard'
+							className='button is-link is-info is-outlined is-light is-small'
+							id='navBurg2'
+							type='submit'>
 							<strong>Calendar</strong>
 						</Link>
 					</div>
 					<div className='navbar-item'>
 						<Link
-							to='/Login'
-							className='button is-link is-success is-outlined is-light is-small'>
+							to='/login'
+							className='button is-link is-success is-outlined is-light is-small'
+							id='navBurg3'
+							type='submit'>
 							<strong>Login</strong>
 						</Link>
 					</div>

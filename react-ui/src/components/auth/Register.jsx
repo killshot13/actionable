@@ -2,10 +2,10 @@ import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import { registerUser } from '../../actions/authActions'
+import { Link, withRouter } from 'react-router-dom'
+import { registerUser } from '../../actions/authActions.js'
 import Logo from '../Logo'
-import RegButtons from './RegButtons'
+
 class Register extends Component {
 	constructor() {
 		super()
@@ -17,6 +17,13 @@ class Register extends Component {
 			errors: {},
 		}
 	}
+
+	componentDidMount() {
+		if (this.props.auth.isAuthenticated) {
+			this.props.history.push('/dashboard')
+		}
+	}
+
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.errors) {
 			this.setState({
@@ -24,28 +31,34 @@ class Register extends Component {
 			})
 		}
 	}
+
 	onChange = e => {
 		this.setState({ [e.target.id]: e.target.value })
 	}
+
 	onSubmit = e => {
 		e.preventDefault()
+
 		const newUser = {
 			name: this.state.name,
 			email: this.state.email,
 			password: this.state.password,
 			password2: this.state.password2,
 		}
+
 		this.props.registerUser(newUser, this.props.history)
 	}
+
 	render() {
 		const { errors } = this.state
+
 		return (
 			<section className='hero is-info is-fullheight is-bold'>
 				<div className='hero-body'>
 					<div className='container is-max-widescreen'>
 						<div className='columns is-5-tablet is-4-desktop is-3-widescreen'>
 							<div className='column'>
-								<form className='box control' noValidate onSubmit={this.onSubmit}>
+								<form className='box control' Validate onSubmit={this.onSubmit}>
 									<div className='level-item'>
 										<figure className='image mb-5'>
 											<Logo />
@@ -139,8 +152,25 @@ class Register extends Component {
 											</span>
 										</div>
 									</div>
-									<div>
-										<RegButtons />
+									<div className='column is-6 is-offset-3'>
+										<div className='box gpBt'>
+											<div className='field is-grouped is-grouped-centered'>
+												<div className='control level-item'>
+													<Link
+														to='/'
+														className='button is-black is-outlined'
+														type='submit'
+														onClick={this.onClick}>
+														<strong>Register</strong>
+													</Link>
+												</div>
+												<div className='control'>
+													<Link to='/' className='button is-ghost is-outlined' type='submit'>
+														Cancel
+													</Link>
+												</div>
+											</div>
+										</div>
 									</div>
 								</form>
 							</div>

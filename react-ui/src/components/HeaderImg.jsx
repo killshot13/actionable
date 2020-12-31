@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Image from './Images/actionable_rectangle.jpg'
 
-class Logo extends Component {
+class HeaderImg extends Component {
 	render() {
 		return (
 			<div>
@@ -13,4 +13,4 @@ class Logo extends Component {
 		)
 	}
 }
-export default Logo
+export default HeaderImg

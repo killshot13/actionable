@@ -1,6 +1,10 @@
+import classnames from 'classnames'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { loginUser } from '../../actions/authActions'
 import Logo from '../Logo'
-import LoginButtons from './LoginButtons'
 
 class Login extends Component {
 	constructor() {
@@ -11,16 +15,35 @@ class Login extends Component {
 			errors: {},
 		}
 	}
+	componentDidMount() {
+		// If logged in and user navigates to Register page, should redirect them to dashboard
+		if (this.props.auth.isAuthenticated) {
+			this.props.history.push('/dashboard')
+		}
+	}
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.auth.isAuthenticated) {
+			this.props.history.push('/dashboard') // push user to dashboard when they login
+		}
+		if (nextProps.errors) {
+			this.setState({
+				errors: nextProps.errors,
+			})
+		}
+	}
+
 	onChange = e => {
 		this.setState({ [e.target.id]: e.target.value })
 	}
+
 	onSubmit = e => {
 		e.preventDefault()
-		const returningUser = {
+
+		const userData = {
 			email: this.state.email,
 			password: this.state.password,
 		}
-		console.log(returningUser)
+		this.props.loginUser(userData)
 	}
 
 	render() {
@@ -43,10 +66,16 @@ class Login extends Component {
 									</div>
 									<div className='field'>
 										<label className='label'>Email</label>
+										<span className='red-text'>
+											{errors.email}
+											{errors.emailnotfound}
+										</span>
 										<div className='control has-icons-left'>
 											<input
 												type='email'
-												className='input is-black is-medium'
+												className={classnames('input is-black is-medium', {
+													invalid: errors.email || errors.emailnotfound,
+												})}
 												placeholder='e.g. actionable@outlook.com'
 												required
 												onChange={this.onChange}
@@ -61,10 +90,16 @@ class Login extends Component {
 									</div>
 									<div className='field'>
 										<label className='label'>Password</label>
+										<span className='red-text'>
+											{errors.password}
+											{errors.passwordincorrect}
+										</span>
 										<div className='control has-icons-left'>
 											<input
 												type='password'
-												className='input is-black is-medium'
+												className={classnames('input is-black is-medium', {
+													invalid: errors.password || errors.passwordincorrect,
+												})}
 												placeholder='*********'
 												required
 												onChange={this.onChange}
@@ -77,8 +112,21 @@ class Login extends Component {
 											</span>
 										</div>
 									</div>
-									<div>
-										<LoginButtons />
+									<div className='column is-6 is-offset-3'>
+										<div className='box gpBt'>
+											<div className='field is-grouped is-grouped-centered'>
+												<div className='control level-item' type='submit'>
+													<Link to='/' className='button is-black is-outlined'>
+														<strong>Submit</strong>
+													</Link>
+												</div>
+												<div className='control level-item' type='submit'>
+													<Link to='/' className='button is-white is-outlined'>
+														Cancel
+													</Link>
+												</div>
+											</div>
+										</div>
 									</div>
 								</form>
 							</div>
@@ -89,4 +137,14 @@ class Login extends Component {
 		)
 	}
 }
-export default Login
+
+Login.propTypes = {
+	loginUser: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
+	errors: PropTypes.object.isRequired,
+}
+const mapStateToProps = state => ({
+	auth: state.auth,
+	errors: state.errors,
+})
+export default connect(mapStateToProps, { loginUser })(Login)
