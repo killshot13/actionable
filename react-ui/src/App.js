@@ -43,12 +43,11 @@ class App extends Component {
 						callback(allowTransition)
 					}}>
 					<Navbar />
-
-					<Route exact path='/' component={Landing} />
-					<Route exact path='/register' component={Register} />
-					<Route exact path='/login' component={Login} />
 					<Switch>
-						<PrivateRoute exact path='/dashboard' component={Dashboard} />
+						<Route exact path='/' component={Landing} />
+						<Route path='/register' component={Register} />
+						<Route path='/login' component={Login} />
+						<PrivateRoute path='/dashboard' component={Dashboard} />
 					</Switch>
 				</BrowserRouter>
 			</Provider>
