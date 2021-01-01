@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './auth/Login'
 import Logo from './Logo'
 
 export default function Navbar() {
@@ -44,7 +43,7 @@ export default function Navbar() {
 					</div>
 					<div className='navbar-item'>
 						<Link
-							to='/dashboard'
+							to='/planner'
 							className='button is-link is-info is-outlined is-light is-small'
 							id='navBurg2'
 							type='submit'>

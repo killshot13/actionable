@@ -29,7 +29,7 @@ class LandingPage extends Component {
 								<div className='level'>
 									<div className='control level-item'>
 										<Link
-											to='/Register'
+											to='/register'
 											className='button is-black is-outlined is-medium'
 											type='submit'>
 											<strong>Take Action!</strong>

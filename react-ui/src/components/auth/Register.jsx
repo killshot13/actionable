@@ -89,12 +89,15 @@ class Register extends Component {
 									</div>
 									<div className='field'>
 										<label className='label'>Email</label>
-										<span className='red-text'>{errors.email}</span>
+										<span className='red-text'>
+											{errors.email}
+											{errors.emailnotfound}
+										</span>
 										<div className='control has-icons-left'>
 											<input
 												type='email'
 												className={classnames('input is-medium', {
-													invalid: errors.email,
+													invalid: errors.email || errors.emailnotfound,
 												})}
 												placeholder='e.g. actionable@outlook.com'
 												required

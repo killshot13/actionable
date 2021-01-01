@@ -13,6 +13,7 @@ import PrivateRoute from './components/auth/PrivateRoute'
 import Register from './components/auth/Register'
 import Landing from './components/LandingPage'
 import Navbar from './components/Navbar'
+import Planner from './components/Planner'
 import setAuthToken from './utils/setAuthToken'
 // Note: this API requires redux@>=3.1.0
 const store = createStore(rootReducer, applyMiddleware(thunk))
@@ -27,10 +28,9 @@ if (localStorage.jwtToken) {
 	if (decoded.exp < currentTime) {
 		store.dispatch(logoutUser())
 
-		window.location.href = './login'
+		window.location.href = '/'
 	}
 }
-
 class App extends Component {
 	render() {
 		return (
@@ -44,10 +44,11 @@ class App extends Component {
 					}}>
 					<Navbar />
 					<Switch>
-						<Route exact path='/' component={Landing} />
+						<Route primary exact path='/' component={Landing} />
 						<Route path='/register' component={Register} />
 						<Route path='/login' component={Login} />
 						<PrivateRoute path='/dashboard' component={Dashboard} />
+						<Route path='/planner' component={Planner} />
 					</Switch>
 				</BrowserRouter>
 			</Provider>
