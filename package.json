@@ -9,6 +9,7 @@
 	},
 	"scripts": {
 		"pretest": "eslint --ignore-path .gitignore .",
+		"test": "npm install && cd ./react-ui && npm install && cd .. && cd ./test && run ./test.js",
 		"client-install": "npm install --prefix react-ui",
 		"start": "node server.js",
 		"server": "nodemon server.js",
