@@ -1,3 +1,5 @@
+import 'bulma-calendar/dist/css/bulma-calendar.min.css'
+import 'bulma-calendar/dist/js/bulma-calendar.min.js'
 import jwt_decode from 'jwt-decode'
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
