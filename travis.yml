@@ -13,7 +13,7 @@ node_js:
   - 12
  os:
   - linux
-dist: focal
+dist: xenial
 git:
   depth: 3
   quiet: true
