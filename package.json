@@ -8,7 +8,6 @@
 		"npm": "6.14.x"
 	},
 	"scripts": {
-		"pretest": "eslint --ignore-path .gitignore .",
 		"test": "npm install && cd ./react-ui && npm install && cd .. && cd ./test && run ./test.js",
 		"client-install": "npm install --prefix react-ui",
 		"start": "node server.js",
