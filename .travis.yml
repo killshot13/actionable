@@ -21,12 +21,12 @@ git:
 before_install:
   - npm i -g npm@>=6.14.x
 
-jobs:
-  build:
-    - run: npm ci
-    - run: npm install
-    - run: npm run dev
-    - run: npm ci
+build:
+  - run: npm ci
+  - run: npm install
+  - run: npm test
+  - run: npm run dev
+  - run: npm ci
 
 addons:
   apt:
@@ -34,9 +34,6 @@ addons:
       - google-chrome
     packages:
       - google-chrome-stable
-
-env:
-  - "test.js"
 
 npm cache: true
 
