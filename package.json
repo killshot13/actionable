@@ -9,6 +9,7 @@
 	},
 	"scripts": {
 		"client-install": "npm install --prefix react-ui",
+		"test": "concurrently \"npm run server\" \"npm run client\"",
 		"start": "node server",
 		"server": "nodemon server",
 		"client": "npm start --prefix react-ui",
