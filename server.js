@@ -26,14 +26,6 @@ if (!isDev && cluster.isMaster) {
 	const app = express()
 	const PORT = process.env.PORT || 5000
 
-	// Travis CI prototype for prelim tests before push
-	app.get('/', (req, res) => {
-		res.send('ci with travis')
-	})
-	app.listen(3000, () => {
-		console.log('App running on port 3000')
-	})
-
 	// Priority serve any static files.
 	app.use(express.static(path.join(__dirname, './react-ui/public/index.html')))
 

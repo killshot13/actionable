@@ -8,12 +8,11 @@
 		"npm": "6.14.x"
 	},
 	"scripts": {
-		"test": "concurrently \"npm run server\" \"npm run client\"",
-		"start": "node server",
-		"server": "nodemon server",
-		"client": "npm start",
-		"dev": "concurrently \"npm run server\" \"npm run client\"",
-		"heroku-postbuild": "cd react-ui/ && npm install && npm run build"
+		"client-install": "npm install --prefix react-ui",
+		"start": "node server.js",
+		"server": "nodemon server.js",
+		"client": "npm start --prefix react-ui",
+		"dev": "concurrently \"npm run server\" \"npm run client\""
 	},
 	"prettier": "mj-pa",
 	"cacheDirectories": [

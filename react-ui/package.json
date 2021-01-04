@@ -25,10 +25,10 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "npm start",
-    "build": "npm build",
-    "test": "npm test",
-    "eject": "npm eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:5000",
   "eslintConfig": {

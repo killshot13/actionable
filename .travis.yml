@@ -23,7 +23,6 @@ before_install:
 build:
   - run: npm ci
   - run: npm install
-  - run: npm test
   - run: npm run dev
   - run: npm ci
 
