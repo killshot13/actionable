@@ -1,57 +1,47 @@
-import 'bulma-calendar/dist/css/bulma-calendar.min.css'
-import 'bulma-calendar/dist/js/bulma-calendar.min.js'
 import jwt_decode from 'jwt-decode'
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { applyMiddleware, createStore } from 'redux'
-import thunk from 'redux-thunk'
 import { logoutUser, setCurrentUser } from './actions/authActions'
-import rootReducer from './actions/reduce'
 import './App.css'
 import Dashboard from './components/auth/Dashboard'
 import Login from './components/auth/Login'
+import Planner from './components/auth/Planner'
 import PrivateRoute from './components/auth/PrivateRoute'
 import Register from './components/auth/Register'
 import Landing from './components/LandingPage'
 import Navbar from './components/Navbar'
-import Planner from './components/Planner'
+import store from './store'
 import setAuthToken from './utils/setAuthToken'
-// Note: this API requires redux@>=3.1.0
-const store = createStore(rootReducer, applyMiddleware(thunk))
 
 if (localStorage.jwtToken) {
 	const token = localStorage.jwtToken
 	setAuthToken(token)
+
 	const decoded = jwt_decode(token)
 	store.dispatch(setCurrentUser(decoded))
-	const currentTime = Date.now() / 100
 
+	const currentTime = Date.now() / 1000
 	if (decoded.exp < currentTime) {
 		store.dispatch(logoutUser())
-
-		window.location.href = '/'
+		window.location.href = './login'
 	}
 }
 class App extends Component {
 	render() {
 		return (
 			<Provider store={store}>
-				<BrowserRouter
-					forceRefresh={false}
-					keyLength={12}
-					getUserConfirmation={(message, callback) => {
-						const allowTransition = window.confirm(message)
-						callback(allowTransition)
-					}}>
-					<Navbar />
-					<Switch>
-						<Route primary exact path='/' component={Landing} />
-						<Route path='/register' component={Register} />
-						<Route path='/login' component={Login} />
-						<PrivateRoute path='/dashboard' component={Dashboard} />
-						<Route path='/planner' component={Planner} />
-					</Switch>
+				<BrowserRouter>
+					<div className='App'>
+						<Navbar />
+						<Route exact path='/' component={Landing} />
+						<Route exact path='/register' component={Register} />
+						<Route exact path='/login' component={Login} />
+						<Switch>
+							<PrivateRoute exact path='/dashboard' component={Dashboard} />
+							<PrivateRoute exact path='/planner' component={Planner} />
+						</Switch>
+					</div>
 				</BrowserRouter>
 			</Provider>
 		)

@@ -15,48 +15,61 @@ class Login extends Component {
 			errors: {},
 		}
 	}
-	componentDidMount() {
-		// If logged in and user navigates to Register page, should redirect them to dashboard
-		if (this.props.auth.isAuthenticated) {
-			this.props.history.push('/dashboard')
-		}
-	}
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.auth.isAuthenticated) {
-			this.props.history.push('/dashboard') // push user to dashboard when they login
-		}
-		if (nextProps.errors) {
-			this.setState({
-				errors: nextProps.errors,
-			})
-		}
-	}
 
-	onChange = e => {
+	handleChange = e => {
 		this.setState({ [e.target.id]: e.target.value })
 	}
 
-	onSubmit = e => {
+	handleSubmit = e => {
 		e.preventDefault()
 
 		const userData = {
 			email: this.state.email,
 			password: this.state.password,
 		}
-		this.props.loginUser(userData)
+		if (this.validateForm()) {
+			this.props.loginUser(userData)
+		}
+	}
+
+	validateForm = () => {
+		let errors = {}
+		let formIsValid = true
+
+		if (!this.state.email) {
+			formIsValid = false
+			errors['email'] = '*Please enter your email'
+		}
+		if (this.state.email) {
+			//regular expression for email validation
+			let pattern = new RegExp(
+				/^(('[\w-\s]+')|([\w-]+(?:\.[\w-]+)*)|('[\w-\s]+')([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+			)
+			if (!pattern.test(this.state.email)) {
+				formIsValid = false
+				errors['email'] = '*Please enter valid email'
+			}
+		}
+		if (!this.state.password) {
+			formIsValid = false
+			errors['password'] = '*Please enter your password'
+		}
+		this.setState({ errors })
+		return formIsValid
 	}
 
 	render() {
 		const { errors } = this.state
+
 		return (
 			<section className='hero is-info is-fullheight is-bold'>
 				<div className='hero-body'>
 					<div className='container is-max-widescreen'>
 						<div className='columns is-5-tablet is-4-desktop is-3-widescreen'>
 							<div className='column'>
-								<form className='box control' Validate onSubmit={this.onSubmit}>
+								<div className='box control'>
 									<div className='level-item'>
-										<figure class='image is-64x64 mb-5'>
+										<figure className='image is-64x64 mb-5'>
 											<Logo />
 										</figure>
 									</div>
@@ -64,71 +77,78 @@ class Login extends Component {
 									<div className='subtitle is-6 has-text-black level-item'>
 										Please login to proceed.
 									</div>
-									<div className='field'>
-										<label className='label'>Email</label>
-										<span className='red-text'>
-											{errors.email}
-											{errors.emailnotfound}
-										</span>
-										<div className='control has-icons-left'>
-											<input
-												type='email'
-												className={classnames('input is-medium', {
-													invalid: errors.email || errors.emailnotfound,
-												})}
-												placeholder='e.g. actionable@outlook.com'
-												required
-												onChange={this.onChange}
-												value={this.state.email}
-												error={errors.email}
-												id='email'
-											/>
-											<span className='icon is-small is-left'>
-												<i className='fa fa-envelope'></i>
-											</span>
+									<form id='loginForm' onSubmit={this.handleSubmit}>
+										<div className='field'>
+											<label className='label'>
+												Email
+												<div className='errorMsg'>
+													{this.state.errors.email}
+													{this.state.errors.emailnotfound}
+												</div>
+												<div className='control has-icons-left'>
+													<input
+														type='email'
+														className={classnames('input is-medium', {
+															invalid: errors.email || errors.emailnotfound,
+														})}
+														placeholder='e.g. actionable@outlook.com'
+														required
+														onChange={this.handleChange}
+														value={this.state.email}
+														id='email'
+													/>
+													<span className='icon is-small is-left'>
+														<i className='fa fa-envelope'></i>
+													</span>
+												</div>
+											</label>
 										</div>
-									</div>
-									<div className='field'>
-										<label className='label'>Password</label>
-										<span className='red-text'>
-											{errors.password}
-											{errors.passwordincorrect}
-										</span>
-										<div className='control has-icons-left'>
-											<input
-												type='password'
-												className={classnames('input is-medium', {
-													invalid: errors.password || errors.passwordincorrect,
-												})}
-												placeholder='*********'
-												required
-												onChange={this.onChange}
-												value={this.state.password}
-												error={errors.password}
-												id='password'
-											/>
-											<span className='icon is-small is-left'>
-												<i className='fa fa-lock'></i>
-											</span>
+
+										<div className='field'>
+											<label className='label'>
+												Password
+												<div className='errorMsg'>
+													{this.state.errors.password}
+													{this.state.errors.passwordincorrect}
+												</div>
+												<div className='control has-icons-left'>
+													<input
+														type='password'
+														className={classnames('input is-medium', {
+															invalid: errors.password || errors.passwordincorrect,
+														})}
+														placeholder='*********'
+														required
+														onChange={this.handleChange}
+														value={this.state.password}
+														id='password'
+													/>
+
+													<span className='icon is-small is-left'>
+														<i className='fa fa-lock'></i>
+													</span>
+												</div>
+											</label>
 										</div>
-									</div>
-									<div className='column is-6 is-offset-3'>
-										<div className='box gpBt'>
-											<div className='field is-grouped is-grouped-centered'>
-												<button
-													className='control level-item button is-black is-outlined'
-													type='submit'>
-													<strong>Login</strong>
-												</button>
-												<Link to='/'>
-													<button className='control level-item button is-ghost is-outlined'>
-														Cancel
+
+										<div className='column is-6 is-offset-3'>
+											<div className='box'>
+												<div className='field is-grouped is-grouped-centered'>
+													<button
+														className='control level-item button is-black is-outlined'
+														type='submit'>
+														<strong>Login</strong>
 													</button>
-												</Link>
+													<Link to='/'>
+														<button className='control level-item button is-ghost is-outlined'>
+															Cancel
+														</button>
+													</Link>
+												</div>
 											</div>
 										</div>
-									</div>
-								</form>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -147,4 +167,5 @@ const mapStateToProps = state => ({
 	auth: state.auth,
 	errors: state.errors,
 })
+
 export default connect(mapStateToProps, { loginUser })(Login)

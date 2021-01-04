@@ -37,7 +37,13 @@ if (!isDev && cluster.isMaster) {
 	)
 	app.use(bodyParser.json())
 
-	// DB Config
+	if (!isDev) {
+		app.use(function (req, res, next) {
+			var protocol = req.get('x-forwarded-proto')
+			protocol == 'https' ? next() : res.redirect('https://' + req.hostname + req.url)
+		})
+	}
+
 	const db = require('./config/keys').mongoURI
 
 	// Connect to MongoDB

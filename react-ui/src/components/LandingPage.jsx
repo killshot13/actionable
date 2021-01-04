@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import './auth/Login'
 import HeaderImg from './HeaderImg'
 
 class LandingPage extends Component {

@@ -18,20 +18,6 @@ class Register extends Component {
 		}
 	}
 
-	componentDidMount() {
-		if (this.props.auth.isAuthenticated) {
-			this.props.history.push('/dashboard')
-		}
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.errors) {
-			this.setState({
-				errors: nextProps.errors,
-			})
-		}
-	}
-
 	onChange = e => {
 		this.setState({ [e.target.id]: e.target.value })
 	}
@@ -56,7 +42,7 @@ class Register extends Component {
 					<div className='container is-max-widescreen'>
 						<div className='columns is-5-tablet is-4-desktop is-3-widescreen'>
 							<div className='column'>
-								<form className='box control' Validate onSubmit={this.onSubmit}>
+								<form className='box control' onSubmit={this.onSubmit}>
 									<div className='level-item'>
 										<figure className='image mb-5'>
 											<Logo />

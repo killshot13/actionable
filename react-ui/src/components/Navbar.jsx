@@ -15,11 +15,10 @@ export default function Navbar() {
 				<div className='navbar-item is-level'>
 					<Logo />
 				</div>
-				<href
+				<div
 					onClick={() => {
 						setisActive(!isActive)
 					}}
-					role='button'
 					className={`navbar-burger burger ${isActive ? 'is-active' : ''}`}
 					aria-label='menu'
 					aria-expanded='false'
@@ -27,7 +26,7 @@ export default function Navbar() {
 					<span aria-hidden='true' data-target='navBurg1'></span>
 					<span aria-hidden='true' data-target='navBurg2'></span>
 					<span aria-hidden='true' data-target='navBurg3'></span>
-				</href>
+				</div>
 			</div>
 
 			<div className={`navbar-menu ${isActive ? 'is-active' : ''}`} id='navBurg'>

@@ -8,32 +8,38 @@ class Dashboard extends Component {
 		e.preventDefault()
 		this.props.logoutUser()
 	}
+
 	render() {
 		const { user } = this.props.auth
 		return (
-			<div style={{ height: '75vh' }} className='container valign-wrapper'>
-				<div className='row'>
-					<div className='col s12 center-align'>
-						<div title is-2 is-family-monospace has-text-weight-bold has-text-black-ter>
-							<strong>Hey there,</strong> {user.name.split(' ')[0]}
-							You are logged into ACTIONABLE!
-						</div>
-						<div className='box'>
-							<div className='level'>
-								<div className='control level-item'></div>
-							</div>
-						</div>
-					</div>
-				</div>
+			<div>
+				<h4>
+					<b>Hey there,</b> {user.name.split(' ')[0]}
+					<p>You are logged into a full-stack MERN app 👏</p>
+				</h4>
+				<button
+					style={{
+						id: 'logout',
+						width: '150px',
+						borderRadius: '3px',
+						letterSpacing: '1.5px',
+						marginTop: '1rem',
+					}}
+					onClick={this.handleLogoutClick}>
+					Logout
+				</button>
 			</div>
 		)
 	}
 }
+
 Dashboard.propTypes = {
 	logoutUser: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 }
+
 const mapStateToProps = state => ({
 	auth: state.auth,
 })
+
 export default connect(mapStateToProps, { logoutUser })(Dashboard)

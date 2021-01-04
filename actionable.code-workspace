@@ -4,5 +4,11 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"launch": {
+
+			"configurations": [],
+			"compounds": []
+		}
+	}
 }

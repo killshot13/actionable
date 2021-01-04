@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  actionableclient:
+    image: actionableclient
+    build:
+      context: react-ui
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
