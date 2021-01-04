@@ -4,11 +4,11 @@ import { Provider } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { logoutUser, setCurrentUser } from './actions/authActions'
 import './App.css'
-import Dashboard from './components/auth/Dashboard'
 import Login from './components/auth/Login'
 import Planner from './components/auth/Planner'
 import PrivateRoute from './components/auth/PrivateRoute'
 import Register from './components/auth/Register'
+import Taskview from './components/auth/Taskview'
 import Landing from './components/LandingPage'
 import Navbar from './components/Navbar'
 import store from './store'
@@ -38,7 +38,7 @@ class App extends Component {
 						<Route exact path='/register' component={Register} />
 						<Route exact path='/login' component={Login} />
 						<Switch>
-							<PrivateRoute exact path='/dashboard' component={Dashboard} />
+							<PrivateRoute exact path='/dashboard' component={Taskview} />
 							<PrivateRoute exact path='/planner' component={Planner} />
 						</Switch>
 					</div>
