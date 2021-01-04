@@ -8,11 +8,10 @@ on:
 
 language: node_js
 node_js:
-  - 14
-  - 12
+  - "stable"
 os:
   - linux
-dist: focal
+dist: xenial
 
 git:
   depth: 3
