@@ -13,7 +13,7 @@
 		"test": "concurrently \"npm run server\" \"npm run client\"",
 		"start": "node server.js",
 		"server": "node server.js",
-		"client": "cd react-ui/ && npm start",
+		"client": "cd react-ui/ && npm install && npm start",
 		"heroku-postbuild": "cd react-ui/ && npm install && npm run build"
 	},
 	"prettier": "mj-pa",
