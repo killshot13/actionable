@@ -12,10 +12,7 @@
 		"stop": "sudo killall node",
 		"dev": "concurrently \"npm run devserver\" \"npm run client\"",
 		"devserver": "nodemon server.js",
-		"test": "npm run testserver",
-		"testserver": "node travis.js",
 		"server": "node server.js",
-		"testclient": "cd react-ui/ && npm install && npm run start",
 		"client": "cd react-ui/ && npm start",
 		"heroku-postbuild": "cd react-ui/ && npm install && npm run build"
 	},

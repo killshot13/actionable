@@ -29,4 +29,8 @@
 	export const GET_TODOS = 'GET_TODOS'
 export const TODO_LOADING = 'TODO_LOADING'
 
+"test": "npm run testserver",
+		"testserver": "node travis.js",
+		"testclient": "cd react-ui/ && npm install && npm run start",
+
 */
