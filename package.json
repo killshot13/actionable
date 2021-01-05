@@ -9,11 +9,6 @@
 	},
 	"scripts": {
 		"start": "node server.js",
-		"stop": "sudo killall node",
-		"dev": "concurrently \"npm run devserver\" \"npm run client\"",
-		"devserver": "nodemon server.js",
-		"server": "node server.js",
-		"client": "cd react-ui/ && npm start",
 		"heroku-postbuild": "cd react-ui/ && npm install && npm run build"
 	},
 	"prettier": "mj-pa",
