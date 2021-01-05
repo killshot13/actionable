@@ -1,17 +1,18 @@
 name: Travis_CI_esmtpm
 
+os:
+  - linux
+dist: xenial
+
+language: node_js
+node_js:
+  - "stable"
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-
-language: node_js
-node_js:
-  - "stable"
-os:
-  - linux
-dist: xenial
 
 git:
   depth: 3
@@ -20,11 +21,10 @@ git:
 before_install:
   - npm i -g npm@>=6.14.x
 
-build:
-  - run: npm ci
-  - run: npm install
-  - run: npm run dev
-  - run: npm ci
+services:
+  - mongodb
+
+
 
 addons:
   apt:
@@ -33,7 +33,7 @@ addons:
     packages:
       - google-chrome-stable
 
-npm cache: true
+cache: npm
 
 notifications:
   email:

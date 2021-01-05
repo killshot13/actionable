@@ -11,6 +11,7 @@
 		"client-install": "npm install --prefix react-ui",
 		"start": "node server.js",
 		"server": "nodemon server.js",
+		"test": "concurrently \"npm run server\" \"npm run client\"",
 		"client": "npm start --prefix react-ui",
 		"dev": "concurrently \"npm run server\" \"npm run client\""
 	},
