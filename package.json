@@ -8,12 +8,15 @@
 		"npm": "6.14.x"
 	},
 	"scripts": {
+		"start": "node server.js",
+		"stop": "sudo killall node",
 		"dev": "concurrently \"npm run devserver\" \"npm run client\"",
 		"devserver": "nodemon server.js",
-		"test": "concurrently \"npm run server\" \"npm run client\"",
-		"start": "node server.js",
+		"test": "npm run testserver",
+		"testserver": "node travis.js",
 		"server": "node server.js",
-		"client": "cd react-ui/ && npm install && npm start",
+		"testclient": "cd react-ui/ && npm install && npm run start",
+		"client": "cd react-ui/ && npm start",
 		"heroku-postbuild": "cd react-ui/ && npm install && npm run build"
 	},
 	"prettier": "mj-pa",
@@ -52,7 +55,7 @@
 		"is-empty": "^1.2.0",
 		"jsonwebtoken": "^8.5.1",
 		"mocha": "^8.2.1",
-		"mongoose": "^5.11.8",
+		"mongoose": "^5.11.10",
 		"os": "^0.1.1",
 		"passport": "^0.4.1",
 		"passport-jwt": "^4.0.0",

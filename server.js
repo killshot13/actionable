@@ -12,11 +12,10 @@ const isDev = process.env.NODE_ENV !== 'production'
 if (!isDev && cluster.isMaster) {
 	console.error(`Node cluster master ${process.pid} is running`)
 
-	// Fork workers.
+	// Fork workers in production
 	for (let i = 0; i < numCPUs; i++) {
 		cluster.fork()
 	}
-
 	cluster.on('exit', (worker, code, signal) => {
 		console.error(
 			`Node cluster worker ${worker.process.pid} exited: code ${code}, signal ${signal}`
@@ -26,6 +25,19 @@ if (!isDev && cluster.isMaster) {
 	const app = express()
 	const PORT = process.env.PORT || 5000
 
+	// always use HTTPS
+	const forceSSL = function () {
+		return function (req, res, next) {
+			if (req.headers['x-forwarded-proto'] !== 'https') {
+				return res.redirect(['https://', req.get('Host'), req.url].join(''))
+			}
+			next()
+		}
+	}
+	if (!isDev) {
+		app.use(forceSSL())
+	}
+
 	// Priority serve any static files.
 	app.use(express.static(path.join(__dirname, './react-ui/public/index.html')))
 
@@ -33,20 +45,18 @@ if (!isDev && cluster.isMaster) {
 	app.use(
 		bodyParser.urlencoded({
 			extended: false,
-		})
+		}),
+		bodyParser.json()
 	)
-	app.use(bodyParser.json())
 
-	if (!isDev) {
-		app.use(function (req, res, next) {
-			var protocol = req.get('x-forwarded-proto')
-			protocol == 'https' ? next() : res.redirect('https://' + req.hostname + req.url)
-		})
-	}
-
-	const db = require('./config/keys').mongoURI
+	// init passport to await API calls
+	const users = require('./routes/api/users')
+	app.use(passport.initialize())
+	require('./config/passport')(passport)
+	app.use('/api/users', users)
 
 	// Connect to MongoDB
+	const db = require('./config/keys').mongoURI
 	mongoose
 		.connect(db, {
 			useNewUrlParser: true,
@@ -55,19 +65,20 @@ if (!isDev && cluster.isMaster) {
 		.then(() => console.log('MongoDB successfully connected'))
 		.catch(err => console.log(err))
 
-	const users = require('./routes/api/users')
-
-	app.use(passport.initialize())
-
-	require('./config/passport')(passport)
-
-	app.use('/api/users', users)
-
+	// setup event listener
 	app.listen(PORT, function () {
-		console.error(
+		// return build details
+		console.log(
 			`Node ${
-				isDev ? 'dev server' : 'cluster worker ' + process.pid
+				isDev ? 'dev server ' + process.pid : 'cluster worker ' + process.pid
 			}: listening on port ${PORT}`
+		)
+	})
+
+	// log app crashes
+	app.on('exit', (code, signal) => {
+		console.error(
+			`Node process ${process.pid} terminated with: code ${code}, signal ${signal}`
 		)
 	})
 }

@@ -1,18 +1,11 @@
 name: Travis_CI_esmtpm
 
+language: node_js
+node_js:
+  - 14
 os:
   - linux
 dist: xenial
-
-language: node_js
-node_js:
-  - "stable"
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
 
 git:
   depth: 3
@@ -21,24 +14,29 @@ git:
 before_install:
   - npm i -g npm@>=6.14.x
 
-services:
-  - mongodb
+build:
+  - run: npm ci
+  - run: npm run test
 
+on:
+  push:
+    branches:
+      only: [main]
+  pull_request:
+    branches:
+      only: [main]
 
-
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
-
-cache: npm
+deploy:
+  - app: actionable
+    provider: heroku
+    skip_cleanup: true
+    api_key:
+      secure: $HEROKU_API_KEY
 
 notifications:
   email:
     recipients:
       - dmreh@outlook.com
       - m.rehnert@safethishome.com
-    on_success: never # default: change
+    on_success: always # default: change
     on_failure: always # default: always
