@@ -33,4 +33,10 @@ export const TODO_LOADING = 'TODO_LOADING'
 		"testserver": "node travis.js",
 		"testclient": "cd react-ui/ && npm install && npm run start",
 
+		if (!isDev) {
+		app.use(function (req, res, next) {
+			var protocol = req.get('x-forwarded-proto')
+			protocol == 'https' ? next() : res.redirect('https://' + req.hostname + req.url)
+		})
+	}
 */
