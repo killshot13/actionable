@@ -1,0 +1,21 @@
+{
+  "name": "actionable",
+  "description": "A \"to-do\" MERN-stack web application with login/auth features and a React-based UI\"",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

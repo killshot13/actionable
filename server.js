@@ -7,6 +7,7 @@ const path = require('path')
 const passport = require('passport')
 
 const isDev = process.env.NODE_ENV !== 'production'
+const PORT = process.env.PORT || 5000
 
 const users = require('./routes/api/users')
 // Multi-process to utilize all CPU cores.
@@ -27,7 +28,12 @@ if (!isDev && cluster.isMaster) {
 	const app = express()
 
 	// Priority serve any static files.
-	app.use(express.static(path.join(__dirname, './react-ui/public/index.html')))
+	app.use(express.static(path.resolve(__dirname, '../react-ui/build')))
+
+	// All remaining requests return the React app, so it can handle routing.
+	app.get('*', function (req, res) {
+		response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'))
+	})
 
 	// configure body parser for AJAX requests
 	app.use(
@@ -52,8 +58,6 @@ if (!isDev && cluster.isMaster) {
 	require('./config/passport')(passport)
 
 	app.use('/api/users', users)
-
-	const PORT = process.env.PORT || 5000
 
 	app.listen(PORT, () =>
 		console.log(
