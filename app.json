@@ -1,6 +1,6 @@
 {
-  "name": "actionable",
-  "description": "A \"to-do\" MERN-stack web application with login/auth features and a React-based UI\"",
+  "name": "action-able",
+  "description": "web app made of create-react-app UI + Node API",
   "scripts": {
   },
   "env": {

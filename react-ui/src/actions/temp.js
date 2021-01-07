@@ -39,4 +39,8 @@ export const TODO_LOADING = 'TODO_LOADING'
 			protocol == 'https' ? next() : res.redirect('https://' + req.hostname + req.url)
 		})
 	}
+
+		"devserver": "nodemon server.js",
+		"devclient": "npm start --prefix react-ui",
+		"dev": "concurrently \"npm run server\" \"npm run devclient\""
 */

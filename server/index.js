@@ -9,7 +9,6 @@ const passport = require('passport')
 const isDev = process.env.NODE_ENV !== 'production'
 const PORT = process.env.PORT || 5000
 
-const users = require('./routes/api/users')
 // Multi-process to utilize all CPU cores.
 if (!isDev && cluster.isMaster) {
 	console.error(`Node cluster master ${process.pid} is running`)
@@ -30,6 +29,11 @@ if (!isDev && cluster.isMaster) {
 	// Priority serve any static files.
 	app.use(express.static(path.resolve(__dirname, '../react-ui/build')))
 
+	app.get('/api', function (req, res) {
+    res.set('Content-Type', 'application/json');
+    res.send('{"message":"Hello from the custom server!"}');
+	});
+
 	// All remaining requests return the React app, so it can handle routing.
 	app.get('*', function (req, res) {
 		response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'))
@@ -43,7 +47,7 @@ if (!isDev && cluster.isMaster) {
 	)
 	app.use(bodyParser.json())
 
-	const db = require('./config/keys').mongoURI
+	const db = require('../config/keys').mongoURI
 	// Connect to MongoDB
 	mongoose
 		.connect(db, {
@@ -53,10 +57,9 @@ if (!isDev && cluster.isMaster) {
 		.then(() => console.log('MongoDB successfully connected'))
 		.catch(err => console.log(err))
 
+	const users = require('../routes/api/users')
 	app.use(passport.initialize())
-
-	require('./config/passport')(passport)
-
+	require('../config/passport')(passport)
 	app.use('/api/users', users)
 
 	app.listen(PORT, () =>
