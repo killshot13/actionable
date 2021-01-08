@@ -33,14 +33,6 @@ export const TODO_LOADING = 'TODO_LOADING'
 		"testserver": "node travis.js",
 		"testclient": "cd react-ui/ && npm install && npm run start",
 
-		if (!isDev) {
-		app.use(function (req, res, next) {
-			var protocol = req.get('x-forwarded-proto')
-			protocol == 'https' ? next() : res.redirect('https://' + req.hostname + req.url)
-		})
-	}
 
-		"devserver": "nodemon server.js",
-		"devclient": "npm start --prefix react-ui",
-		"dev": "concurrently \"npm run server\" \"npm run devclient\""
+
 */

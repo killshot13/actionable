@@ -2,13 +2,16 @@
 	"name": "action-able",
 	"version": "0.1.0",
 	"description": "A \"to-do\" MERN-stack web application with login/auth features and a React-based UI\"",
-	"main": "server.js",
+	"main": "index.js",
 	"engines": {
 		"node": "14.x"
 	},
 	"scripts": {
 		"start": "node server",
-		"build": "cd react-ui/ && npm install && npm run build"
+		"build": "cd react-ui/ && npm install && npm run build",
+		"devserver": "nodemon index.js",
+		"devclient": "npm start --prefix react-ui",
+		"dev": "concurrently \"npm run devserver\" \"npm run devclient\""
 	},
 	"prettier": "mj-pa",
 	"cacheDirectories": [

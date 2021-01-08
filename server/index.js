@@ -30,14 +30,21 @@ if (!isDev && cluster.isMaster) {
 	app.use(express.static(path.resolve(__dirname, '../react-ui/build')))
 
 	app.get('/api', function (req, res) {
-    res.set('Content-Type', 'application/json');
-    res.send('{"message":"Hello from the custom server!"}');
-	});
+		res.set('Content-Type', 'application/json')
+		res.send('{"message":"Hello from the custom server!"}')
+	})
 
 	// All remaining requests return the React app, so it can handle routing.
 	app.get('*', function (req, res) {
 		response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'))
 	})
+
+	if (!isDev) {
+		app.use(function (req, res, next) {
+			var protocol = req.get('x-forwarded-proto')
+			protocol == 'https' ? next() : res.redirect('https://' + req.hostname + req.url)
+		})
+	}
 
 	// configure body parser for AJAX requests
 	app.use(
