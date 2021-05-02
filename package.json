@@ -57,7 +57,7 @@
 		"validator": "^13.5.2"
 	},
 	"devDependencies": {
-		"mj-pa": "^1.2.0",
+		"mj-pa": "^1.3.1",
 		"prettier": "^2.2.1",
 		"nodemon": "^2.0.7"
 	}
